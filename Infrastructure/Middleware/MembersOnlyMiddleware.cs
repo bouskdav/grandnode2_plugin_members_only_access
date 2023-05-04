@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -46,6 +47,18 @@ namespace Widgets.MembersOnly.Infrastructure.Middleware
                 return;
             }
 
+            // Get the enpoint which is executing (asp.net core 3.0 only)
+            var executingEndpoint = context.GetEndpoint();
+
+            // Get attributes on the executing action method and it's defining controller class
+            var attributes = executingEndpoint.Metadata.OfType<AllowAnonymousAttribute>();
+
+            if (attributes.Any())
+            {
+                await _next(context);
+                return;
+            }
+
             var viewResult = new ViewResult() {
                 ViewName = "~/Views/WidgetsMembersOnly/Index.cshtml"
             };
@@ -56,7 +69,6 @@ namespace Widgets.MembersOnly.Infrastructure.Middleware
 
             viewDataDictionary.Model = null;//your model
             viewResult.ViewData = viewDataDictionary;
-
 
             var executor = context.RequestServices
                 .GetRequiredService<IActionResultExecutor<ViewResult>>();
