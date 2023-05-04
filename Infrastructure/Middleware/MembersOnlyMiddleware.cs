@@ -40,6 +40,7 @@ namespace Widgets.MembersOnly.Infrastructure.Middleware
             if (context.Request.Cookies.ContainsKey(".Grand.Authentication") || 
                 context.Request.Cookies.ContainsKey(".Nekton.Member") || 
                 context.Request.Path.ToString().Contains("MembersOnly") || 
+                context.Request.Path.ToString().Contains("Plugins") || 
                 !_membersOnlyWidgetSettings.MembersOnlyAccessEnabled ||
                 isStaticFile)
             {
