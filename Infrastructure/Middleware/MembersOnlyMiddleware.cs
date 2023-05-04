@@ -47,17 +47,17 @@ namespace Widgets.MembersOnly.Infrastructure.Middleware
                 return;
             }
 
-            // Get the enpoint which is executing (asp.net core 3.0 only)
-            var executingEndpoint = context.GetEndpoint();
+            //// Get the enpoint which is executing (asp.net core 3.0 only)
+            //var executingEndpoint = context.GetEndpoint();
 
-            // Get attributes on the executing action method and it's defining controller class
-            var attributes = executingEndpoint.Metadata.OfType<AllowAnonymousAttribute>();
+            //// Get attributes on the executing action method and it's defining controller class
+            //var attributes = executingEndpoint.Metadata.OfType<AllowAnonymousAttribute>();
 
-            if (attributes.Any())
-            {
-                await _next(context);
-                return;
-            }
+            //if (attributes.Any())
+            //{
+            //    await _next(context);
+            //    return;
+            //}
 
             var viewResult = new ViewResult() {
                 ViewName = "~/Views/WidgetsMembersOnly/Index.cshtml"
