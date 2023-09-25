@@ -6,7 +6,6 @@ using Widgets.MembersOnly;
     FriendlyName = "MembersOnly",
     Group = "Widgets",
     SystemName = MembersOnlyWidgetDefaults.ProviderSystemName,
-    SupportedVersion = GrandVersion.SupportedPluginVersion,
     Author = "Laguna Solutions",
     Version = "1.0"
 )]
